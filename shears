@@ -1,0 +1,33 @@
+local Tool = game:GetObjects("rbxassetid://12685165702")[1]
+local Humanoid = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+local Sound = Instance.new("Sound")
+
+Tool.Parent = game.Players.LocalPlayer.Backpack
+
+Sound.PlaybackSpeed = 1.25
+Sound.Volume = 2
+Sound.SoundId = "rbxassetid://9118823101"
+Sound.Parent = Tool
+
+Tool.Activated:Connect(function()
+    local Use = Tool.Animations.use
+    local UseTrack = Humanoid:LoadAnimation(Use)
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local object = mouse.Target
+    local plrpos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    local objpos = object.Position
+
+    UseTrack:Play()
+    Sound:Play()
+    wait(0.8)
+    if (plrpos - objpos).Magnitude < 10 then
+    object:Destroy()
+    end
+end)
+
+Tool.Equipped:Connect(function()
+    local Idle = Tool.Animations.idle
+    local IdleTrack = Humanoid:LoadAnimation(Idle)
+
+    IdleTrack:Play()
+end)
